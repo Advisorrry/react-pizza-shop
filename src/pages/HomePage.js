@@ -7,12 +7,14 @@ import { SortBy } from '../components/SortBy'
 
 export const HomePage = () => {
     return (
-        <div classNameName="wrapper">
+        <div className="wrapper">
             <Header />
             <div className="content">
                 <div className="container">
                     <div className="content__top">
-                        <Categories />
+                        <Categories
+                        
+                        items={['Мясные', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые']} />
                         <SortBy />
                     </div>
                     <h2 className="content__title">Все пиццы</h2>
