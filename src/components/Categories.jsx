@@ -10,14 +10,15 @@ export const Categories = ({ items, onClickItem }) => {
         <div className="categories">
             <ul>
                 <li
-                className={activeItem === null ? 'active' : ''}
-                onClick={() => onSelectItem(null)}
-                >Все</li>
+                    className={activeItem === null ? 'active' : ''}
+                    onClick={() => onSelectItem(null)}>
+                    Все
+                </li>
                 {items.map((item, idx) => (
-                    <li 
-                    className={activeItem === idx ? 'active' : ''}
-                    onClick={() => onSelectItem(idx)} 
-                    key={idx}>
+                    <li
+                        className={activeItem === idx ? 'active' : ''}
+                        onClick={() => onSelectItem(idx)}
+                        key={idx}>
                         {item}
                     </li>
                 ))}
