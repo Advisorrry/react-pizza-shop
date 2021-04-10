@@ -3,7 +3,7 @@ import { Categories } from '../components/Categories'
 import { PizzaBlock } from '../components/PizzaBlock'
 import { SortBy } from '../components/SortBy'
 
-export const HomePage = () => {
+export const HomePage = ({data}) => {
     return (
         <div className="container">
             <div className="content__top">
@@ -12,7 +12,9 @@ export const HomePage = () => {
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
-                <PizzaBlock />
+                {data.map((obj) => (
+                    <PizzaBlock key={obj.id} {...obj} />
+                ))}
             </div>
         </div>
     )

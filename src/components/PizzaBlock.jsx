@@ -1,28 +1,54 @@
+import classNames from 'classnames'
 import React from 'react'
 import { Button } from './Button'
 
-export const PizzaBlock = () => {
+export const PizzaBlock = ({ imageUrl, name, price, types, sizes }) => {
+    const [activeType, setActiveType] = React.useState(types[0])
+    const [activeSize, setActiveSize] = React.useState(sizes[0])
+
+    const typeNames = ['тонкое', 'традиционное']
+    const sizesNames = [26, 30, 40]
+
+    const onSelectType = (idx) => {
+        setActiveType(idx)
+    }
+    const onSelectSize = (idx) => {
+        setActiveSize(idx)
+    }
     return (
         <div className="pizza-block">
-            <img
-                className="pizza-block__image"
-                src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
-                alt="Pizza"
-            />
-            <h4 className="pizza-block__title">Чизбургер-пицца</h4>
+            <img className="pizza-block__image" src={imageUrl} alt={name} />
+            <h4 className="pizza-block__title">{name}</h4>
             <div className="pizza-block__selector">
                 <ul>
-                    <li className="active">тонкое</li>
-                    <li>традиционное</li>
+                    {typeNames.map((item, idx) => (
+                        <li
+                            onClick={() => onSelectType(idx)}
+                            className={classNames({
+                                active: activeType === idx,
+                                disabled: !types.includes(idx),
+                            })}
+                            key={idx}>
+                            {item}
+                        </li>
+                    ))}
                 </ul>
                 <ul>
-                    <li className="active">26 см.</li>
-                    <li>30 см.</li>
-                    <li>40 см.</li>
+                    {sizesNames.map((item, idx) => (
+                        <li
+                            onClick={() => onSelectSize(item)}
+                            className={classNames({
+                                active: activeSize === item,
+                                disabled: !sizes.includes(item),
+                            })}
+                            key={idx}>
+                            {item} см.
+                        </li>
+                    ))}
                 </ul>
             </div>
             <div className="pizza-block__bottom">
-                <div className="pizza-block__price">от 395 ₽</div>
+                <div className="pizza-block__price">от {price} ₽</div>
                 <Button outline add>
                     <svg
                         width="12"
