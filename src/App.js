@@ -1,33 +1,21 @@
-import axios from 'axios'
+
 import React from 'react'
 import { Redirect, Route, Switch } from 'react-router'
 import { Header } from './components/Header'
+import { useFetchPizzas } from './hooks/useFetchPizzas'
 import { CartPage } from './pages/CartPage'
 import { HomePage } from './pages/HomePage'
 
+
+
 function App() {
-    const [data, setData] = React.useState([])
-
-    React.useEffect(() => {
-        const  getData = async () => {
-            try {
-                const response = await axios.get('http://localhost:3000/db.json')
-                const {pizzas} = response.data
-        
-                setData(pizzas)
-            } catch (e) {
-                throw new Error(e)
-            }
-        }
-        getData()
-    }, [])
-
+    const fetchPizzas = useFetchPizzas()
     return (
         <div className="wrapper">
             <Header />
             <div className="content">
                 <Switch>
-                    <Route exact path="/" render={() => <HomePage data={data} />} />
+                    <Route exact path="/" render={() => <HomePage data={fetchPizzas.items} />} />
                     <Route exact path="/cart" component={CartPage} />
 
                     <Redirect to="/" />
