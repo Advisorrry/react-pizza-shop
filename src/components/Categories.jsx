@@ -1,10 +1,8 @@
 import React from 'react'
 
-export const Categories = React.memo(({ items, onClickItem }) => {
-    const [activeItem, setActiveItem] = React.useState(0)
+export const Categories = React.memo(({ items, onClickItem, activeCategory }) => {
 
     const onSelectItem = (idx) => {
-        setActiveItem(idx)
         onClickItem(idx)
     }
     return (
@@ -12,7 +10,7 @@ export const Categories = React.memo(({ items, onClickItem }) => {
             <ul>
                 {items.map((item, idx) => (
                     <li
-                        className={activeItem === idx ? 'active' : ''}
+                        className={activeCategory === idx ? 'active' : ''}
                         onClick={() => onSelectItem(idx)}
                         key={idx}>
                         {item}

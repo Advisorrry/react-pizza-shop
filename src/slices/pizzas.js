@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     items: [],
-    isLoaded: false
+    isLoaded: false,
 }
 
 const pizzasSlice = createSlice({
@@ -13,8 +13,11 @@ const pizzasSlice = createSlice({
             state.items = payload
             state.isLoaded = true
         },
+        setLoaded: (state, { payload }) => {
+            state.isLoaded = payload
+        },
     },
 })
-export const { setPizzas } = pizzasSlice.actions
+export const { setPizzas, setLoaded } = pizzasSlice.actions
 
 export default pizzasSlice.reducer

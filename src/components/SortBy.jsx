@@ -1,16 +1,15 @@
 import React from 'react'
 
-export const SortBy = ({ items }) => {
-    const [activeItem, setActiveItem] = React.useState('популярности')
+export const SortBy = React.memo(({ items, activeSortBy, onClickSortType}) => {
     const [visiblePopup, setVisiblePopup] = React.useState(false)
     const sortRef = React.useRef()
 
     const toggleVisiblePopup = () => {
         setVisiblePopup(!visiblePopup)
     }
-    const onSelectItem = (idx) => {
-        setActiveItem(idx)
+    const onSelectItem = (type) => {
         setVisiblePopup(false)
+        onClickSortType(type)
     }
 
     const habdleOutsideClick = (event) => {
@@ -20,6 +19,8 @@ export const SortBy = ({ items }) => {
         }
     }
 
+    const activeLabel = items.find(item => item.type === activeSortBy).name
+
     React.useEffect(() => {
         document.body.addEventListener('click', habdleOutsideClick)
     }, [])
@@ -28,7 +29,7 @@ export const SortBy = ({ items }) => {
         <div ref={sortRef} className="sort">
             <div className="sort__label">
                 <svg
-                className={visiblePopup ? 'rotated' : ''}
+                    className={visiblePopup ? 'rotated' : ''}
                     width="10"
                     height="6"
                     viewBox="0 0 10 6"
@@ -40,22 +41,22 @@ export const SortBy = ({ items }) => {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span onClick={toggleVisiblePopup}>{activeItem}</span>
+                <span onClick={toggleVisiblePopup}>{activeLabel}</span>
             </div>
             {visiblePopup && (
                 <div className="sort__popup">
                     <ul>
-                    {items.map((item, idx) => (
-                    <li
-                        className={activeItem === item.name ? 'active' : ''}
-                        onClick={() => onSelectItem(item.name)}
-                        key={idx}>
-                        {item.name}
-                    </li>
-                ))}
+                        {items.map((item, idx) => (
+                            <li
+                                className={activeSortBy === item.type ? 'active' : ''}
+                                onClick={() => onSelectItem(item.type)}
+                                key={idx}>
+                                {item.name}
+                            </li>
+                        ))}
                     </ul>
                 </div>
             )}
         </div>
     )
-}
+})

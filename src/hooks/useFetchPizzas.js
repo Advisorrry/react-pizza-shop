@@ -11,17 +11,17 @@ export const useFetchPizzas = () => {
     React.useEffect(() => {
         const getData = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/db.json')
-                const { pizzas } = response.data
+                const response = await axios.get('http://localhost:3001/pizzas')
+                const { data } = response
 
-                dispatch(setPizzas(pizzas))
+                dispatch(setPizzas(data))
             } catch (e) {
                 throw new Error(e)
-            } 
+            }
         }
         getData()
     }, [dispatch])
     return {
-        items
+        items,
     }
 }
