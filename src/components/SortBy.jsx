@@ -47,10 +47,10 @@ export const SortBy = ({ items }) => {
                     <ul>
                     {items.map((item, idx) => (
                     <li
-                        className={activeItem === item ? 'active' : ''}
-                        onClick={() => onSelectItem(item)}
+                        className={activeItem === item.name ? 'active' : ''}
+                        onClick={() => onSelectItem(item.name)}
                         key={idx}>
-                        {item}
+                        {item.name}
                     </li>
                 ))}
                     </ul>
