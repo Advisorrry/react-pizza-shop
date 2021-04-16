@@ -1,8 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    categories: 0,
-    sortBy: 'popular',
+    categories: null,
+    sortBy: {
+        type: 'popular',
+        order: 'desc'
+    },
 }
 
 const filtersSlice = createSlice({

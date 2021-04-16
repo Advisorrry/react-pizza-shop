@@ -49,7 +49,7 @@ export const SortBy = React.memo(({ items, activeSortBy, onClickSortType}) => {
                         {items.map((item, idx) => (
                             <li
                                 className={activeSortBy === item.type ? 'active' : ''}
-                                onClick={() => onSelectItem(item.type)}
+                                onClick={() => onSelectItem(item)}
                                 key={idx}>
                                 {item.name}
                             </li>

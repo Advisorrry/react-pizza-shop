@@ -8,11 +8,11 @@ import { getFilters, getPizzas } from '../selectors'
 
 import { setCategories, setSortBy } from '../slices/filters'
 
-const categoriesArr = ['Все', 'Мясные', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые']
+const categoriesArr = ['Мясные', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые']
 const sortByArr = [
-    { name: 'популярности', type: 'popular' },
-    { name: 'цене', type: 'price' },
-    { name: 'алфавиту', type: 'alphabet' },
+    { name: 'популярности', type: 'popular', order: 'desc' },
+    { name: 'цене', type: 'price', order: 'desc' },
+    { name: 'алфавиту', type: 'title', order: 'asc' },
 ]
 
 export const HomePage = ({ data }) => {
@@ -40,7 +40,11 @@ export const HomePage = ({ data }) => {
                     onClickItem={onSelectCategories}
                     items={categoriesArr}
                 />
-                <SortBy activeSortBy={sortBy} onClickSortType={onSelectSortType} items={sortByArr} />
+                <SortBy
+                    activeSortBy={sortBy.type}
+                    onClickSortType={onSelectSortType}
+                    items={sortByArr}
+                />
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
