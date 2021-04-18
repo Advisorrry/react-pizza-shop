@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import React from 'react'
 import { Button } from './Button'
 
-export const PizzaBlock = ({ imageUrl, name, price, types, sizes }) => {
+export const PizzaBlock = ({ id, imageUrl, name, price, types, sizes, onClickAddPizza, addedPizzaCount }) => {
     const [activeType, setActiveType] = React.useState(types[0])
     const [activeSize, setActiveSize] = React.useState(sizes[0])
 
@@ -15,6 +15,10 @@ export const PizzaBlock = ({ imageUrl, name, price, types, sizes }) => {
     const onSelectSize = (idx) => {
         setActiveSize(idx)
     }
+    const handleAddPizza = () => {
+        onClickAddPizza({id, imageUrl, name, price, type: typeNames[activeType], size: activeSize})
+    }
+
     return (
         <div className="pizza-block">
             <img className="pizza-block__image" src={imageUrl} alt={name} />
@@ -49,7 +53,7 @@ export const PizzaBlock = ({ imageUrl, name, price, types, sizes }) => {
             </div>
             <div className="pizza-block__bottom">
                 <div className="pizza-block__price">от {price} ₽</div>
-                <Button outline add>
+                <Button onClick={handleAddPizza} outline add>
                     <svg
                         width="12"
                         height="12"
@@ -62,7 +66,7 @@ export const PizzaBlock = ({ imageUrl, name, price, types, sizes }) => {
                         />
                     </svg>
                     <span>Добавить</span>
-                    <i>2</i>
+                    {addedPizzaCount && <i>{addedPizzaCount}</i>}
                 </Button>
             </div>
         </div>
