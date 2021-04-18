@@ -13,7 +13,7 @@ export const useFetchPizzas = () => {
         const getData = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:3001/pizzas?${
+                    `/pizzas?${
                         categories !== null ? `category=${categories}` : ''
                     }&_sort=${sortBy.type}&_order=${sortBy.order}`,
                 )
