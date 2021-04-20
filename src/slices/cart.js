@@ -12,7 +12,7 @@ const cartSlice = createSlice({
     reducers: {
         addToCart: (state, { payload }) => {
             if (!state.items[payload.id]) {
-                state.items[payload.id] = []            
+                state.items[payload.id] = []
             }
             state.items[payload.id].push(payload)
 
@@ -25,8 +25,16 @@ const cartSlice = createSlice({
         setTotalCount: (state, { payload }) => {
             state.totalCount = payload
         },
+        removePizza: (state, { payload }) => {
+            delete state.items[payload]
+        },
+        clearCart: (state) => {
+            state.items = []
+            state.totalPrice = 0
+            state.totalCount = 0
+        },
     },
 })
-export const { setTotalPrice, setTotalCount, addToCart } = cartSlice.actions
+export const { setTotalPrice, setTotalCount, addToCart, removePizza, clearCart } = cartSlice.actions
 
 export default cartSlice.reducer

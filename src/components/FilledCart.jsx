@@ -1,15 +1,34 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getCart } from '../selectors'
+import { clearCart } from '../slices/cart'
 import { Button } from './Button'
 import { CartItem } from './CartItem'
 
-export const FilledCart = ({items, totalAddedPizza}) => {
+export const FilledCart = ({items}) => {
     const {totalCount, totalPrice} = useSelector(getCart)
     const pizzas = Object.keys(items).map(key => (
         items[key][0]
     ))
+    const dispatch = useDispatch()
+
+    const handleClearCart = React.useCallback(() => {
+        if (window.confirm('Вы уверены, что хотите очистить корзину?')) {
+            dispatch(clearCart())
+        }
+    }, [dispatch])
+    const removePizza = React.useCallback(
+        (id) => {
+            if (window.confirm('Вы действительно хотите удалить из корзины?')) {
+                dispatch(removePizza(id))
+            }
+        },
+        [dispatch],
+    )
+
+
+
     
     return (
         <div className="cart">
@@ -45,7 +64,7 @@ export const FilledCart = ({items, totalAddedPizza}) => {
                     </svg>
                     Корзина
                 </h2>
-                <div className="cart__clear">
+                <div onClick={() => handleClearCart()} className="cart__clear">
                     <svg
                         width="20"
                         height="20"
@@ -86,7 +105,7 @@ export const FilledCart = ({items, totalAddedPizza}) => {
             </div>
             <div className="content__items">
                 {pizzas.map((item) => (
-                    <CartItem key={item.id} {...item} />
+                    <CartItem key={item.id} {...item} onRemove={removePizza} />
                 ))}
                 
             </div>

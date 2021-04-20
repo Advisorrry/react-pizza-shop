@@ -1,7 +1,11 @@
 import React from 'react'
 import { Button } from './Button'
 
-export const CartItem = ({imageUrl, name, price, type, size}) => {
+export const CartItem = ({id, imageUrl, name, price, type, size, onRemove}) => {
+    console.log(onRemove);
+   
+
+    
     return (
         <div className="cart__item">
             <div className="cart__item-img">
@@ -15,8 +19,8 @@ export const CartItem = ({imageUrl, name, price, type, size}) => {
                 <h3>{name}</h3>
                 <p>{type} тесто, {size} см.</p>
             </div>
-            <div className="cart__item-count">
-                <Button outline circle className="cart__item-count-minus">
+             <div className="cart__item-count">
+                {/* <Button outline circle className="cart__item-count-minus">
                     <svg
                         width="10"
                         height="10"
@@ -28,9 +32,9 @@ export const CartItem = ({imageUrl, name, price, type, size}) => {
                             fill="#EB5A1E"
                         />
                     </svg>
-                </Button>
+                </Button>  */}
                 <b>2</b>
-                <Button outline circle className="cart__item-count-plus">
+                {/* <Button outline circle className="cart__item-count-plus">
                     <svg
                         width="10"
                         height="10"
@@ -46,13 +50,13 @@ export const CartItem = ({imageUrl, name, price, type, size}) => {
                             fill="#EB5A1E"
                         />
                     </svg>
-                </Button>
+                </Button> */}
             </div>
             <div className="cart__item-price">
                 <b>{price} ₽</b>
             </div>
             <div className="cart__item-remove">
-                <Button outline circle>
+                <Button onClick={() => onRemove(id)} outline circle>
                     <svg
                         width="10"
                         height="10"
